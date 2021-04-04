@@ -7,15 +7,29 @@ body {
     background-blend-mode: lighten;
 }
 
+h2 {
+    padding-top: 10px;
+    margin-top: 0;
+}
+
 .cartouche_infos {
     padding-bottom : 10px;
+}
+
+.center {
+    margin-top: 0;
+    padding-top: 10px;
+    margin-bottom: 0;
+    padding-bottom: 10px;
 }
 
 .titre {
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
-    padding-bottom: 2px;
     margin-bottom: 30px;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .semaine {
@@ -28,7 +42,7 @@ body {
 }
 
 .row_player {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .row_org {

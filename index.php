@@ -78,20 +78,27 @@
 		<?php
 			foreach ($creneaux as $creneau){
 				$reservations = mysqli_query($co, "SELECT * FROM reservations NATURAL JOIN joueurs ORDER BY created_at ASC");
-				// TODO Loops pour chaque créneaux dans le SQL
-				$rowCountInscr = mysqli_fetch_assoc(mysqli_query($co, "SELECT( SELECT COUNT(*) FROM reservations r0 WHERE creneau_0_ok = 1 AND r0.id_creneau = r.id_creneau) AS nb_creneau_0_ok, ( SELECT COUNT(*) FROM reservations r1 WHERE creneau_1_ok = 1 AND r1.id_creneau = r.id_creneau ) AS nb_creneau_1_ok, ( SELECT COUNT(*) FROM reservations r2 WHERE creneau_2_ok = 1 AND r2.id_creneau = r.id_creneau ) AS nb_creneau_2_ok, ( SELECT COUNT(*) FROM reservations r3 WHERE creneau_3_ok = 1 AND r3.id_creneau = r.id_creneau ) AS nb_creneau_3_ok, ( SELECT COUNT(*) FROM reservations r4 WHERE creneau_4_ok = 1 AND r4.id_creneau = r.id_creneau ) AS nb_creneau_4_ok FROM reservations r WHERE r.id_creneau = " . $creneau['id_creneau'] . " LIMIT 1"));
-				$rowCountInscr_org = mysqli_fetch_assoc(mysqli_query($co, "SELECT( SELECT COUNT(*) FROM reservations r0 WHERE creneau_0_org = 1 AND r0.id_creneau = r.id_creneau) AS nb_creneau_0_org, ( SELECT COUNT(*) FROM reservations r1 WHERE creneau_1_org = 1 AND r1.id_creneau = r.id_creneau ) AS nb_creneau_1_org, ( SELECT COUNT(*) FROM reservations r2 WHERE creneau_2_org = 1 AND r2.id_creneau = r.id_creneau ) AS nb_creneau_2_org, ( SELECT COUNT(*) FROM reservations r3 WHERE creneau_3_org = 1 AND r3.id_creneau = r.id_creneau ) AS nb_creneau_3_org, ( SELECT COUNT(*) FROM reservations r4 WHERE creneau_4_org = 1 AND r4.id_creneau = r.id_creneau ) AS nb_creneau_4_org FROM reservations r WHERE r.id_creneau = " . $creneau['id_creneau'] . " LIMIT 1"));
+
+				$subQueryInscr = "";
+				$subQueryInscr_org = "";
+				for ($i = 0; $i < $nbCreneaux; $i++) {
+					$subQueryInscr .= "(SELECT COUNT(*) FROM reservations r" . $i . " WHERE creneau_" . $i . "_ok = 1 AND r" . $i . ".id_creneau = r.id_creneau) AS nb_creneau_" . $i . "_ok" . ($i < $nbCreneaux-1 ? ', ' : '');
+					$subQueryInscr_org .= "(SELECT COUNT(*) FROM reservations r" . $i . " WHERE creneau_" . $i . "_org = 1 AND r" . $i . ".id_creneau = r.id_creneau) AS nb_creneau_" . $i . "_org" . ($i < $nbCreneaux-1 ? ', ' : '');
+				}
+
+				$rowCountInscr = mysqli_fetch_assoc(mysqli_query($co, "SELECT " . $subQueryInscr . " FROM reservations r WHERE r.id_creneau = " . $creneau['id_creneau'] . " LIMIT 1"));
+				$rowCountInscr_org = mysqli_fetch_assoc(mysqli_query($co, "SELECT " . $subQueryInscr_org . " FROM reservations r WHERE r.id_creneau = " . $creneau['id_creneau'] . " LIMIT 1"));
 		?>
 
 			<div class="semaine">
-				<h4 class="center title_semaine">Semaine du <?= date_format(new DateTime($creneau['jour_debut']), 'l jS F Y') ?> au <?= date_format(new DateTime($creneau['jour_fin']), 'l jS F Y') ?></h4>
+				<h4 class="center title_semaine">Semaine du <?= date_format(new DateTime($creneau['jour_debut']), 'd/m/Y') ?> au <?= date_format(new DateTime($creneau['jour_fin']), 'd/m/Y') ?></h4>
 				<table class="centered">
 					<thead>
 						<tr>
 							<th></th>
 
 							<?php for ($i = 0; $i < $nbCreneaux; $i++){ ?>
-								<th><?= date_format(new DateTime($creneau['creneau_' . $i . '_jour']), 'l jS F Y') ?><br>
+								<th><?= date_format(new DateTime($creneau['creneau_' . $i . '_jour']), 'd/m/Y') ?><br>
 									<span class="badge white-text grey darken-2"><?= $creneau['creneau_' . $i . '_horaire'] ?></span><br>
 									<span class="badge <?php if ($rowCountInscr['nb_creneau_' . $i . '_ok'] > 6) echo "red-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr['nb_creneau_' . $i . '_ok'] != null ? $rowCountInscr['nb_creneau_' . $i . '_ok'] : '0') . ' joueurs'; ?></span><br>
 									<span class="badge <?php if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] == 0 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "red-text darken-1"; else if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] < 2 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "orange-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr_org['nb_creneau_' . $i . '_org'] != null ? $rowCountInscr_org['nb_creneau_' . $i . '_org'] : '0') . ' organisat.'; ?></span>
@@ -249,7 +256,7 @@
 						</div>
 
 						<div class="center btn_register">
-							<button class="btn waves-effect waves-light" type="submit" name="action">S'enregistrer
+							<button class="btn waves-effect waves-light" type="submit" name="action">Enregistrer
 								<i class="material-icons right">send</i>
 							</button>
 						</div>
@@ -257,10 +264,7 @@
 					</div>
 				</form>
 			</div>
-
-		<?php 
-			}
-		?>
+		<?php } ?>
 
 		<footer class="page-footer grey lighten-3">
     		<div class="container">
