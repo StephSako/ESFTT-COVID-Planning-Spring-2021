@@ -54,7 +54,11 @@ badge {
 }
 
 footer {
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
+}
+
+footer .container .row {
+    margin-bottom: 0;
 }
 
 .infos_indispos {
@@ -69,6 +73,6 @@ footer {
     padding-bottom: 15px;
 }
 
-.titre, h5, .title_semaine {
+.titre, h5, .title_semaine, .lobster {
     font-family: Lobster, cursive;
 }

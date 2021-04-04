@@ -17,17 +17,17 @@
 <body>
 
 	<?php
+		setlocale(LC_TIME, "fr_FR", "French");
 		include('model/bd_planning.php');
 		
 		$joueurs = mysqli_query($co, 'SELECT * FROM joueurs ORDER BY nom_joueur') or die("Impossible d'exécuter la requête des joueurs.");
 		$creneaux = mysqli_query($co, 'SELECT * FROM creneaux ORDER BY jour_debut') or die("Impossible d'exécuter la requête des créaneaux.");
-		$nbCreneaux = 5;
 	?>
 
 	<div class="container">
-		<div class="titre">
-			<h2 class="center"><b>Planning de réservations - COVID 19</b></h1>
-			<h4 class="center"><b>ESFTT - Reprise printemps 2021</b></h3>
+		<div class="lobster titre">
+			<h4 class="center"><b>Planning de réservations - COVID 19</b></h4>
+			<h5 class="center lobster"><b>ESFTT - Reprise Printemps 2021</b></h5>
 		</div>
 
 		<!--div class="semaine red lighten-4 cartouche_infos">
@@ -35,7 +35,7 @@
 		</div-->
 
 		<div class="semaine cartouche_infos">
-			<h5 class="center"><b>Règlements</b></h5>
+			<h5 class="center lobster"><b>Règlements</b></h5>
 
 			<blockquote>Afin d'accéder à la salle, vous devez vous inscrire à la semaine. Pour cela, pas de comptes ni de mots de passe à retenir ! <i class="material-icons">sentiment_very_satisfied</i>
 				<br><br>Pour une réservation à la semaine, veuillez simplement :
@@ -69,18 +69,17 @@
 
 		<!--div class="container cartouche_infos">
 			<ul class="collection with-header semaine blue lighten-4 infos_indispos" style="padding-left: 20px;">
-				<li class="collection-header blue lighten-4"><h5><span class="blue-text text-darken-2"><i class="material-icons">info</i></span> La salle est indisponible pour les dates suivantes :</h5></li>
+				<li class="collection-header blue lighten-4"><h5 class="lobster"><span class="blue-text text-darken-2"><i class="material-icons">info</i></span> La salle est indisponible pour les dates suivantes :</h5></li>
 				<li class="collection-item blue lighten-4 center"><b>Mercredi 24 Juin</b> remplacé par le <b>Jeudi 25 Juin</b></li>
 				<li class="collection-item blue lighten-4 center"><b>Mercredi 1er Juillet</b> remplacé par le <b>Jeudi 2 Juillet</b></li>
-			</ul-->
-		</div>
+			</ul>
+		</div-->
 		
 		<?php
 			foreach ($creneaux as $creneau){
-				$reservations = mysqli_query($co, "SELECT * FROM reservations NATURAL JOIN joueurs ORDER BY created_at ASC");
+				$reservations = mysqli_query($co, "SELECT * FROM reservations r NATURAL JOIN joueurs WHERE r.id_creneau = " . $creneau['id_creneau'] . " ORDER BY created_at ASC");
 
-				$subQueryInscr = "";
-				$subQueryInscr_org = "";
+				$subQueryInscr = $subQueryInscr_org = "";
 				for ($i = 0; $i < $nbCreneaux; $i++) {
 					$subQueryInscr .= "(SELECT COUNT(*) FROM reservations r" . $i . " WHERE creneau_" . $i . "_ok = 1 AND r" . $i . ".id_creneau = r.id_creneau) AS nb_creneau_" . $i . "_ok" . ($i < $nbCreneaux-1 ? ', ' : '');
 					$subQueryInscr_org .= "(SELECT COUNT(*) FROM reservations r" . $i . " WHERE creneau_" . $i . "_org = 1 AND r" . $i . ".id_creneau = r.id_creneau) AS nb_creneau_" . $i . "_org" . ($i < $nbCreneaux-1 ? ', ' : '');
@@ -91,19 +90,25 @@
 		?>
 
 			<div class="semaine">
-				<h4 class="center title_semaine">Semaine du <?= date_format(new DateTime($creneau['jour_debut']), 'd/m/Y') ?> au <?= date_format(new DateTime($creneau['jour_fin']), 'd/m/Y') ?></h4>
+				<h4 class="center lobster">Du <?= ucwords(strftime("%e %B", strtotime($creneau['jour_debut']))) ?> au <?= ucwords(strftime("%e %B", strtotime($creneau['jour_fin']))) ?></h4>
+				
 				<table class="centered">
 					<thead>
 						<tr>
 							<th></th>
 
-							<?php for ($i = 0; $i < $nbCreneaux; $i++){ ?>
-								<th><?= date_format(new DateTime($creneau['creneau_' . $i . '_jour']), 'd/m/Y') ?><br>
-									<span class="badge white-text grey darken-2"><?= $creneau['creneau_' . $i . '_horaire'] ?></span><br>
-									<span class="badge <?php if ($rowCountInscr['nb_creneau_' . $i . '_ok'] > 6) echo "red-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr['nb_creneau_' . $i . '_ok'] != null ? $rowCountInscr['nb_creneau_' . $i . '_ok'] : '0') . ' joueurs'; ?></span><br>
-									<span class="badge <?php if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] == 0 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "red-text darken-1"; else if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] < 2 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "orange-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr_org['nb_creneau_' . $i . '_org'] != null ? $rowCountInscr_org['nb_creneau_' . $i . '_org'] : '0') . ' organisat.'; ?></span>
-								</th>
-							<?php } ?>
+							<?php
+								for ($i = 0; $i < $nbCreneaux; $i++){
+									if ($creneau['creneau_' . $i . '_jour']) { ?>
+										<th>
+											<?= ucwords(strftime("%A %e %B", strtotime($creneau['creneau_' . $i . '_jour']))) ?><br>
+											<span class="badge white-text grey darken-2"><?= $creneau['creneau_' . $i . '_horaire'] ?></span><br>
+											<span class="badge <?php if ($rowCountInscr['nb_creneau_' . $i . '_ok'] > 6) echo "red-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr['nb_creneau_' . $i . '_ok'] != null ? $rowCountInscr['nb_creneau_' . $i . '_ok'] : '0') . ' joueurs'; ?></span><br>
+											<span class="badge <?php if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] == 0 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "red-text darken-1"; else if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] < 2 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "orange-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr_org['nb_creneau_' . $i . '_org'] != null ? $rowCountInscr_org['nb_creneau_' . $i . '_org'] : '0') . ' organisat.'; ?></span>
+										</th>
+							<?php }
+								}
+							?>
 							
 							<th></th>
 							<th></th>
@@ -112,49 +117,28 @@
 
 					<tbody>
 						<?php
-							$i_mardi 			= 0;
-							$i_mercredi 		= 0;
-							$i_vendredi	 		= 0;
-							$i_samedi_matin 	= 0;
-							$i_dimanche_matin 	= 0;
-
+							$i_th_joueurs = array_fill(0, $nbCreneaux, 0);
 							while ($reservation = mysqli_fetch_assoc($reservations)){
 								$dateFormat = new DateTime($reservation['created_at']); ?>
 								<tr>
 									<td>
 										<?= $reservation['nom_joueur'] ?>
 									</td>
-									<?php 
-										echo "<td>";
-											if ($reservation['creneau_0_ok']) { $i_mardi++; ?> <i class="material-icons <?php if ($i_mardi > 6) echo 'red-text lighten-3'; else echo 'green-text lighten-3'; ?>" >check_circle</i> <?php }
-											if ($reservation['creneau_0_org']) echo "<i class='material-icons'>remove_red_eye</i>";
-										echo "</td>";
-
-										echo "<td>";
-											if ($reservation['creneau_1_ok']) { $i_mercredi++; ?> <i class="material-icons <?php if ($i_mercredi > 6) echo 'red-text lighten-3'; else echo 'green-text lighten-3'; ?>" >check_circle</i> <?php }
-											if ($reservation['creneau_1_org']) echo "<i class='material-icons'>remove_red_eye</i>";
-										echo "</td>";
-
-										echo "<td>";
-											if ($reservation['creneau_2_ok']) { $i_vendredi++; ?> <i class="material-icons <?php if ($i_vendredi > 6) echo 'red-text lighten-3'; else echo 'green-text lighten-3'; ?>" >check_circle</i> <?php }
-											if ($reservation['creneau_2_org']) echo "<i class='material-icons'>remove_red_eye</i>";
-										echo "</td>";
-
-										echo "<td>";
-											if ($reservation['creneau_3_ok']) { $i_samedi_matin++; ?> <i class="material-icons <?php if ($i_samedi_matin > 6) echo 'red-text lighten-3'; else echo 'green-text lighten-3'; ?>" >check_circle</i> <?php }
-											if ($reservation['creneau_3_org']) echo "<i class='material-icons'>remove_red_eye</i>";
-										echo "</td>";
-
-										echo "<td>";
-											if ($reservation['creneau_4_ok']) { $i_dimanche_matin++; ?> <i class="material-icons <?php if ($i_dimanche_matin > 6) echo 'red-text lighten-3'; else echo 'green-text lighten-3'; ?>" >check_circle</i> <?php }
-											if ($reservation['creneau_4_org']) echo "<i class='material-icons'>remove_red_eye</i>";
-										echo "</td>";
+									<?php
+										for ($i = 0; $i < $nbCreneaux; $i++){
+											if ($creneau['creneau_' . $i . '_jour']) {
+												echo "<td>";
+													if ($reservation['creneau_' . $i . '_ok']) { $i_th_joueurs[$i]++; ?> <i class="material-icons <?php if ($i_th_joueurs[$i] > 6) echo 'red-text lighten-3'; else echo 'green-text lighten-3'; ?>" >check_circle</i> <?php }
+													if ($reservation['creneau_' . $i . '_org']) echo "<i class='material-icons'>remove_red_eye</i>";
+												echo "</td>";
+											}
+										}
 
 									echo "<td style='font-size: 10pt'><b>" . $dateFormat->format('d/m/Y') . "</b><br>" . $dateFormat->format('H:i') . "</td>"; ?>
 									<td>
-										<form action="controler/planning/suppression.php" method="POST"-->
-											<input type="hidden" name="table" value="reservations" />
-											<button class="red darken-1 btn waves-effect waves-light" type="submit" name="delete" value="<?php echo $reservation['id_joueur']; ?>"><i class="material-icons">cancel</i></button>
+										<form action="controler/planning/suppression.php" method="POST">
+										<input type="hidden" name="id_creneau" value="<?= $creneau['id_creneau'] ?>" />
+											<button onclick="return confirm('Supprimer votre réservation ?');" class="red darken-1 btn waves-effect waves-light" type="submit" name="id_joueur" value="<?php echo $reservation['id_joueur']; ?>"><i class="material-icons">cancel</i></button>
 										</form>
 									</td>
 								</tr>
@@ -179,38 +163,19 @@
 							<div class="input-field col s2">
 								<p class="center">Je souhaite jouer :</p>
 							</div>
-							<div class="input-field col s2">
-								<p>
-									<label>
-										<input type="checkbox" name="mardi" />
-										<span>Mardi</span>
-									</label>
-								</p>
-							</div>
-							<div class="input-field col s2">
-								<p>
-									<label>
-										<input type="checkbox" name="mercredi" />
-										<span>Mercredi</span>
-									</label>
-								</p>
-							</div>
-							<div class="input-field col s2">
-								<p>
-									<label>
-										<input type="checkbox" name="vendredi" />
-										<span>Vendredi</span>
-									</label>
-								</p>
-							</div>
-							<div class="input-field col s2">
-								<p>
-									<label>
-										<input type="checkbox" name="dimanche_matin" />
-										<span>Dimanche matin</span>
-									</label>
-								</p>
-							</div>
+							<?php
+								for ($i = 0; $i < $nbCreneaux; $i++){
+									if ($creneau['creneau_' . $i . '_jour']) { ?>
+										<div class="input-field col s2">
+											<p>
+												<label>
+													<input type="checkbox" name="<?= 'creneau_' . $i ?>" />
+													<span><?= ucwords(strftime("%A %e", strtotime($creneau['creneau_' . $i . '_jour']))) ?></span>
+												</label>
+											</p>
+										</div>
+									<?php }
+								} ?>
 						</div>
 
 						<div class="row valign-wrapper row_org">
@@ -220,39 +185,20 @@
 							<div class="input-field col s2">
 								<p class="center">Je me propose organisateur COVID pour :</p>
 							</div>
-							<div class="input-field col s2">
-								<p>
-									<label>
-										<input type="checkbox" name="org_mardi" />
-										<span>Mardi</span>
-									</label>
-								</p>
-							</div>
-							<div class="input-field col s2">
-								<p>
-									<label>
-										<input type="checkbox" name="org_mercredi" />
-										<span>Mercredi</span>
-									</label>
-								</p>
-							</div>
-							<div class="input-field col s2">
-								<p>
-									<label>
-										<input type="checkbox" name="org_vendredi" />
-										<span>Vendredi</span>
-									</label>
-								</p>
-							</div>
-							<div class="input-field col s2">
-								<p>
-									<label>
-										<input type="checkbox" name="org_dimanche_matin" />
-										<span>Dimanche matin</span>
-									</label>
-								</p>
-							</div>
-							<input type="hidden" name="table" value="reservations" />
+							<?php
+								for ($i = 0; $i < $nbCreneaux; $i++){
+									if ($creneau['creneau_' . $i . '_jour']) { ?>
+										<div class="input-field col s2">
+											<p>
+												<label>
+													<input type="checkbox" name="<?= 'creneau_' . $i . '_org' ?>" />
+													<span><?= ucwords(strftime("%A %e", strtotime($creneau['creneau_' . $i . '_jour']))) ?></span>
+												</label>
+											</p>
+										</div>
+									<?php }
+								} ?>
+							<input type="hidden" name="id_creneau" value="<?= $creneau['id_creneau'] ?>" />
 						</div>
 
 						<div class="center btn_register">
@@ -273,15 +219,12 @@
 						<a href="https://www.esftt.com/"><img class="responsive-img" width="70" height="70" src="https://www.esftt.com/images/logo-new.png"></a>
 					</div>
 					<div class="col s4 center">
-						<a href="https://github.com/StephSako?tab=repositories">Le développeur</a>
+						<a class="lobster" href="https://github.com/StephSako?tab=repositories">Le développeur</a>
 					</div>
 					<div class="col s4 center">
-						<a  href="https://github.com/StephSako/ESFTT-planning">Le projet</a>
+						<a class="lobster" href="https://github.com/StephSako/ESFTT-planning">Le projet</a>
 					</div>
 				</div>
-        	</div>
-        	<div class="footer-copyright">
-        		<div class="container black-text">© 2020 Copyright Text</div>
         	</div>
         </footer>
 			

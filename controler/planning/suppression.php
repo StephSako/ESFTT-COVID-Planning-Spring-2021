@@ -2,8 +2,8 @@
 	include('../../model/Reservation.php');
     header('Location:../../index.php');
 
-    if( !empty($_POST['table']) && !empty($_POST['delete']) ){
+    if( !empty($_POST['id_creneau']) && !empty($_POST['id_joueur']) ){
         $reservation = new Reservation();
-        $reservation->suppression(htmlspecialchars($_POST['table']), $_POST['delete']);
+        $reservation->suppression(htmlspecialchars($_POST['id_creneau']), $_POST['id_joueur']);
         
 	}
