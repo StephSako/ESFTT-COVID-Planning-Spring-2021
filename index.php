@@ -54,7 +54,7 @@
 									<br><b>Au moins 1 responsable</b> est <b>obligatoire</b> par créneau.</li>
 								</ul>
 							</li>
-							<li>Valider en cliquant sur "ENREGISTRER".</li>
+							<li>Valider en cliquant sur <b>ENREGISTRER</b>.</li>
 						</ol>
 					</blockquote>
 
