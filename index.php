@@ -217,7 +217,7 @@
 								<a class="lobster" href="https://github.com/StephSako?tab=repositories">Le développeur</a>
 							</div>
 							<div class="col s4 center">
-								<a class="lobster" href="https://github.com/StephSako/ESFTT-planning">Le projet</a>
+								<a class="lobster" href="https://github.com/StephSako/ESFTT-COVID-Planning-Spring-2021">Le projet</a>
 							</div>
 						</div>
 					</div>

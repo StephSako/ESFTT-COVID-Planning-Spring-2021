@@ -19,7 +19,7 @@
             include('model/Joueur.php');
             if (!empty($_SESSION)){ header('Location:../index.php');} else { ?>
 
-            <div class="card-panel center" style="margin-top: 40px">
+            <div class="card-panel center" style="margin-top: 40px; border-radius: 20px;">
                 <h4 class="center lobster">Connexion</h3>
             
                 <form action="controler/connexion.php" method="POST">

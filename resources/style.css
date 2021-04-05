@@ -1,10 +1,8 @@
-body {
-    background-image: url('images/background.jpg');
-    background-repeat: no-repeat;
-    background-attachment: fixed;  
+html {
+    background: linear-gradient(135deg, rgb(17, 116, 184) 1%, rgba(0, 19, 23, 1) 100%) fixed;
     background-size: cover;
-    background-color: rgba(255, 255, 255, 0.55);
-    background-blend-mode: lighten;
+    height: 100%;
+    display: block;
 }
 
 h2 {
