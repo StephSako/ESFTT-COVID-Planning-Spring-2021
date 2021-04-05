@@ -34,7 +34,6 @@
 				$strSetColumns .= "creneau_" . $i . "_ok, creneau_" . $i . "_org" . ($i < $this->nbCreneaux-1 ? ", " : "");
 				$strSetValues .= "'" . $reservations[$i] . "', '" . $reservations_org[$i] . "'" . ($i < $this->nbCreneaux-1 ? ", " : "");
 			}
-			var_dump("INSERT INTO reservations (id_joueur, created_at, id_creneau, " . $strSetColumns . ") VALUES ('" . $_SESSION['id_joueur'] . "', '". $date . "', '" . $id_creneau . "', " . $strSetValues . ")");
-			$result = mysqli_query($this->co, "INSERT INTO reservations (id_joueur, created_at, id_creneau, " . $strSetColumns . ") VALUES ('" . $_SESSION['id_joueur'] . "', '". $date . "', '" . $id_creneau . "', " . $strSetValues . ")") or die('Impossible d\'enregister la réservation.');
+			mysqli_query($this->co, "INSERT INTO reservations (id_joueur, created_at, id_creneau, " . $strSetColumns . ") VALUES ('" . $_SESSION['id_joueur'] . "', '". $date . "', '" . $id_creneau . "', " . $strSetValues . ")") or die('Impossible d\'enregister la réservation.');
 		}
 	}

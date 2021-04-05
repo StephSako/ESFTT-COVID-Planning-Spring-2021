@@ -41,13 +41,13 @@
 				</div-->
 
 				<div class="semaine cartouche_infos">
-					<h5 class="center lobster"><b>Règlements</b></h5>
+					<h5 class="center lobster"><b>Règlement</b></h5>
 
-					<blockquote>Afin d'accéder à la salle, vous devez vous inscrire à la semaine. Pour cela, pas de comptes ni de mots de passe à retenir ! <i class="material-icons">sentiment_very_satisfied</i>
-						<br><br>Pour une réservation à la semaine, veuillez simplement :
+					<blockquote>Afin d'accéder aux tables installées <b>en extérieur</b>, vous devez vous inscrire pour chacun des créneaux à la semaine.</blockquote>
+					
+					<blockquote>Pour une réservation à la semaine, veuillez simplement :
 						<ol class="browser-default">
-							<li>sélectionner votre nom dans la liste déroulante,</li>
-							<li>cocher chacun des jours pour lesquels :
+							<li>Cocher/décocher chacun des jours pour lesquels :
 								<ul class="browser-default">
 									<li>vous souhaitez jouer</li>
 									<li>vous vous proposez être <b>Organisateur COVID</b> : mise en application des consignes d'hygiène réglementées par la <a href="http://www.fftt.com/site/">FFTT</a>
@@ -55,20 +55,13 @@
 									<br>2 <b>Organisateurs COVID</b> maximum sont requis par jour. Nous essaierons de faire tourner entre nous au fil des semaines. <i class="material-icons">sentiment_satisfied</i></li>
 								</ul>
 							</li>
-							<li>valider en cliquant sur "S'enregistrer".</li>
+							<li>Valider en cliquant sur "S'enregistrer".</li>
 						</ol>
 					</blockquote>
 
-					<blockquote>Cependant, seulement <b>10</b> personnes maximum seront autorisées à pénétrer dans le gymnase. C'est pourquoi les 10 premières personnes
-						inscrites seront prioritaires <b>par jour</b>.
-					</blockquote>
+					<blockquote>Cependant, seulement <b>6</b> joueurs maximum seront autorisés à accéder aux tables. C'est pourquoi les 6 premières personnes inscrites seront prioritaires. Vérifier dans la jiurnée pour tout désistement, au cas où.</blockquote>
 
 					<blockquote class="black-text"><b>Au moindre problème</b>, <b>suggestion</b> ou <b>remarque</b>, contactez-moi par mail à <a href="mailto:stephen.sakovitch@orange.fr?subject=Réservation ESFTT - été 2020">stephen.sakovitch@orange.fr</a>, sur Messenger, WhatsApp ou par SMS.</blockquote>
-				</div>
-
-				<div class="semaine green lighten-4 cartouche_infos">
-					<blockquote>Pour <b>modifier</b> votre réservation d'une semaine, il faut <b>re-cocher toutes les cases des jours</b> de la semaine pour lesquels vous souhaitez participer.<br>
-					Pour <b>supprimer</b> votre réservation d'une semaine, cliquer sur le bouton rouge en face de votre nom dans la liste.</blockquote>
 				</div>
 
 				<!--div class="container cartouche_infos">
@@ -100,7 +93,6 @@
 							<thead>
 								<tr>
 									<th></th>
-
 									<?php
 										for ($i = 0; $i < $nbCreneaux; $i++){
 											if ($creneau['creneau_' . $i . '_jour']) { ?>
@@ -110,10 +102,9 @@
 													<span class="badge <?php if ($rowCountInscr['nb_creneau_' . $i . '_ok'] > 6) echo "red-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr['nb_creneau_' . $i . '_ok'] != null ? $rowCountInscr['nb_creneau_' . $i . '_ok'] : '0') . ' joueurs'; ?></span><br>
 													<span class="badge <?php if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] == 0 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "red-text darken-1"; else if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] < 2 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "orange-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr_org['nb_creneau_' . $i . '_org'] != null ? $rowCountInscr_org['nb_creneau_' . $i . '_org'] : '0') . ' organisat.'; ?></span>
 												</th>
-									<?php }
+										<?php }
 										}
 									?>
-									
 									<th></th>
 									<th></th>
 								</tr>
@@ -122,7 +113,9 @@
 							<tbody>
 								<?php
 									$i_th_joueurs = array_fill(0, $nbCreneaux, 0);
+									$row_connected_user = null;
 									while ($reservation = mysqli_fetch_assoc($reservations)){
+										if ($reservation['id_joueur'] == $_SESSION['id_joueur']) $row_connected_user = $reservation;
 										$dateFormat = new DateTime($reservation['created_at']); ?>
 										<tr>
 											<td>
@@ -164,7 +157,7 @@
 												<div class="input-field col s2">
 													<p>
 														<label>
-															<input type="checkbox" name="<?= 'creneau_' . $i ?>" />
+															<input type="checkbox" name="<?= 'creneau_' . $i ?>" <?php if (boolval($row_connected_user['creneau_' . $i . '_ok'])){ echo "checked=\"checked\""; } ?> />
 															<span><?= ucwords(strftime("%A %e", strtotime($creneau['creneau_' . $i . '_jour']))) ?></span>
 														</label>
 													</p>
@@ -183,7 +176,7 @@
 												<div class="input-field col s2">
 													<p>
 														<label>
-															<input type="checkbox" name="<?= 'creneau_' . $i . '_org' ?>" />
+															<input type="checkbox" name="<?= 'creneau_' . $i . '_org' ?>" <?php if (boolval($row_connected_user['creneau_' . $i . '_org'])){ echo "checked=\"checked\""; } ?> />
 															<span><?= ucwords(strftime("%A %e", strtotime($creneau['creneau_' . $i . '_jour']))) ?></span>
 														</label>
 													</p>

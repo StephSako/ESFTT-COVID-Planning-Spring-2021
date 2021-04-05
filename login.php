@@ -32,7 +32,7 @@
                     </div>
                 </div>
 
-                <button class="btn waves-effect waves-light blue lighten-2"><i class="material-icons prefix">check</i> C'est parti !</button>
+                <button style="margin-bottom: 20px" class="btn waves-effect waves-light blue lighten-2">C'est parti !</button>
             </form>
         </div>
 	</body>
