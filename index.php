@@ -29,7 +29,7 @@
 			<?php if (empty($_SESSION)){ header('Location:../login.php');} else { ?>
 				
 				<div class="titre center">
-					<h4 class="lobster"><b>Planning de réservations - COVID 19</b></h4>
+					<h4 class="lobster">🏓<b>Planning de réservations - COVID 19</b>🏓</h4>
 					<h5 class="lobster"><b>ESFTT - Reprise Printemps 2021</b></h5>
 
 					<h6 style="margin-top: 25px" class="blue-text"><b>Bienvenue <?= $_SESSION['nom_joueur'] ?></b></h6>
@@ -43,25 +43,35 @@
 				<div class="semaine cartouche_infos">
 					<h5 class="center lobster"><b>Règlement</b></h5>
 
-					<blockquote>Afin d'accéder aux tables installées <b>en extérieur</b>, vous devez vous inscrire pour chacun des créneaux à la semaine.</blockquote>
+					<blockquote>Afin d'accéder aux tables installées <b>en extérieur</b>, vous devez vous inscrire pour les créneaux de votre choix à la semaine.</blockquote>
 					
-					<blockquote>Pour une réservation à la semaine, veuillez simplement :
-						<ol class="browser-default">
-							<li>Cocher/décocher chacun des jours pour lesquels :
+					<blockquote>Pour chaque créneau, veuillez simplement :
+						<ol>
+							<li>Cocher/décocher les créneaux pour lesquels :
 								<ul class="browser-default">
 									<li>vous souhaitez jouer</li>
-									<li>vous vous proposez être <b>Organisateur COVID</b> : mise en application des consignes d'hygiène réglementées par la <a href="http://www.fftt.com/site/">FFTT</a>
-										(consignes <a href="http://www.fftt.com/site/medias/shares_files/guide-de-reprise-tennis-de-table-fftt-2966.pdf?utm_source=sendinblue&utm_campaign=Protocole_de_reprise_du_Tennis_de_Table&utm_medium=email">ici</a>).
-									<br>2 <b>Organisateurs COVID</b> maximum sont requis par jour. Nous essaierons de faire tourner entre nous au fil des semaines. <i class="material-icons">sentiment_satisfied</i></li>
+									<li>vous vous proposez être <b>responsable (personnes habituées à la gestion au club, détentrices d'un badge d'ouverture de salle, du code d'alarme/du placard)</b> : mise en application des <a href="https://cdn.fbsbx.com/v/t59.2708-21/163722723_2854003158150138_7452564991527498697_n.pdf/affiche-reprise-en-exterieur.pdf?_nc_cat=107&ccb=1-3&_nc_sid=0cab14&_nc_ohc=GgQ-sbTqfyUAX-wRZsG&_nc_ht=cdn.fbsbx.com&oh=ab13ec5e489214e71a29b8d8588002be&oe=606D06BB&dl=1">consignes d'hygiène</a> réglementées par la <a href="http://www.fftt.com/site/accueil">FFTT.</a>
+									<br><b>Au moins 1 responsable</b> est <b>obligatoire</b> par créneau.</li>
 								</ul>
 							</li>
-							<li>Valider en cliquant sur "S'enregistrer".</li>
+							<li>Valider en cliquant sur "ENREGISTRER".</li>
 						</ol>
 					</blockquote>
 
-					<blockquote>Cependant, seulement <b>6</b> joueurs maximum seront autorisés à accéder aux tables. C'est pourquoi les 6 premières personnes inscrites seront prioritaires. Vérifier dans la jiurnée pour tout désistement, au cas où.</blockquote>
+					<blockquote>Cependant, seulement <b>6 joueurs</b> par créneau seront autorisés à accéder aux tables. C'est pourquoi les <b>6 premières personnes inscrites</b> seront prioritaires pour chaque créneau. Soyez alertes dans la journée pour d'éventuels désistements.</blockquote>
+
+					<p class="blue-text center" style="padding: 0;"><span style="font-size: 20px">📣</span> Nous comptons sur <b>chacun d'entre vous</b>, tant joueurs que responsables, pour installer et désinstaller le matériel en début et fin de séance. 😉</p>
 
 					<blockquote class="black-text"><b>Au moindre problème</b>, <b>suggestion</b> ou <b>remarque</b>, contactez-moi par mail à <a href="mailto:stephen.sakovitch@orange.fr?subject=Réservation ESFTT - été 2020">stephen.sakovitch@orange.fr</a>, sur Messenger, WhatsApp ou par SMS.</blockquote>
+				</div>
+
+				<div class="semaine">
+					<div class="row">
+						<div class="col s2 center"><h5><b>Légendes</b></h5></div>
+						<div class="col s3 center"><p><i class="material-icons green-text lighten-3">check_circle</i><br>Joueur prioritaire <b>du créneau</b></p></div>
+						<div class="col s4 center"><p><i class="material-icons red-text lighten-3">check_circle</i><br>Joueur non prioritaire <b>du créneau</b></p></div>
+						<div class="col s3 center"><p><i class="material-icons">remove_red_eye</i><br>Responsable</p></div>
+					</div>
 				</div>
 
 				<!--div class="container cartouche_infos">

@@ -15,26 +15,32 @@
 </head>
 
     <body class="container">
-        <div class="card-panel center" style="margin-top: 40px">
-            <h4 class="center lobster">Connexion</h3>
-        
-            <form action="controler/connexion.php" method="POST">
-                <div class="container">
-                    <div class="input-field">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input id="username" name="_username" type="text" autocapitalize="off" class="validate">
-                        <label for="username">Votre pseudo</label>
-                    </div>
-                    <div class="input-field">
-                        <i class="material-icons prefix">lock</i>
-                        <input id="password" name="_password" type="password" class="validate">
-                        <label for="password">Votre mot de passe</label>
-                    </div>
-                </div>
+        <?php
+            include('model/Joueur.php');
+            if (!empty($_SESSION)){ header('Location:../index.php');} else { ?>
 
-                <button style="margin-bottom: 20px" class="btn waves-effect waves-light blue lighten-2">C'est parti !</button>
-            </form>
-        </div>
+            <div class="card-panel center" style="margin-top: 40px">
+                <h4 class="center lobster">Connexion</h3>
+            
+                <form action="controler/connexion.php" method="POST">
+                    <div class="container">
+                        <div class="input-field">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="username" name="_username" type="text" autocapitalize="off" class="validate">
+                            <label for="username">Votre pseudo</label>
+                        </div>
+                        <div class="input-field">
+                            <i class="material-icons prefix">lock</i>
+                            <input id="password" name="_password" type="password" class="validate">
+                            <label for="password">Votre mot de passe</label>
+                        </div>
+                    </div>
+
+                    <button style="margin-bottom: 20px" class="btn waves-effect waves-light blue lighten-2">C'est parti !</button>
+                </form>
+            </div>
+
+        <?php } ?>
 	</body>
 
     <!--Scripts trigger de Materialize-->
