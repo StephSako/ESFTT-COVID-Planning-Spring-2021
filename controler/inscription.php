@@ -1,6 +1,8 @@
 <?php
-	include('../../model/Reservation.php');
-    header('Location:../../index.php');
+    include('../model/bd_planning.php');
+	include('../model/Reservation.php');
+    include('../model/Joueur.php');
+    header('Location:../index.php');
 
     if(!empty($_POST['id_creneau'])){
 
@@ -13,8 +15,6 @@
         }
         $reservation = new Reservation();
 
-        if ($reservation->deja_inscrit($_POST['id_creneau']))
-            $reservation->modification($_POST['id_creneau'], $reservations, $reservations_org);
-        else
-            $reservation->inscription($_POST['id_creneau'], $reservations, $reservations_org, date('Y-m-d H:i:s'));
+        if ($reservation->deja_inscrit($_POST['id_creneau'])) $reservation->modification($_POST['id_creneau'], $reservations, $reservations_org);
+        else $reservation->inscription($_POST['id_creneau'], $reservations, $reservations_org, date('Y-m-d H:i:s'));
 	}

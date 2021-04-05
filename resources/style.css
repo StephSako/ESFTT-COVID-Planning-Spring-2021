@@ -40,6 +40,10 @@ h2 {
     border-radius: 10px;
 }
 
+.td_resa {
+    vertical-align: bottom;
+}
+
 .row_player {
     margin-bottom: 0;
 }

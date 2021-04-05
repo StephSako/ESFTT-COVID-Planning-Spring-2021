@@ -131,7 +131,7 @@
 											<?php
 												for ($i = 0; $i < $nbCreneaux; $i++){
 													if ($creneau['creneau_' . $i . '_jour']) {
-														echo "<td>";
+														echo "<td class='td_resa'>";
 															if ($reservation['creneau_' . $i . '_ok']) { $i_th_joueurs[$i]++; ?> <i class="material-icons <?php if ($i_th_joueurs[$i] > 6) echo 'red-text lighten-3'; else echo 'green-text lighten-3'; ?>" >check_circle</i> <?php }
 															if ($reservation['creneau_' . $i . '_org']) echo "<i class='material-icons'>remove_red_eye</i>";
 														echo "</td>";
