@@ -17,9 +17,8 @@ h2 {
 }
 
 .center {
-    margin-top: 0;
+    margin: 0;
     padding-top: 10px;
-    margin-bottom: 0;
     padding-bottom: 10px;
 }
 
@@ -46,7 +45,7 @@ h2 {
 }
 
 .row_org {
-    margin-bottom: 5px;
+    margin-bottom: 0;
 }
 
 badge {
@@ -73,6 +72,6 @@ footer .container .row {
     padding-bottom: 15px;
 }
 
-.titre, h5, .title_semaine, .lobster {
+h5, .title_semaine, .lobster {
     font-family: Lobster, cursive;
 }

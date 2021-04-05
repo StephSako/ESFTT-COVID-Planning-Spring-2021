@@ -2,7 +2,7 @@
 	include('../../model/Reservation.php');
     header('Location:../../index.php');
 
-    if( !empty($_POST['id_creneau']) && !empty($_POST['id_joueur']) ){
+    if(!empty($_POST['id_creneau'])){
 
         $reservations = array_fill(0, $nbCreneaux, 0);
         $reservations_org = array_fill(0, $nbCreneaux, 0);
@@ -13,8 +13,8 @@
         }
         $reservation = new Reservation();
 
-        if ($reservation->deja_inscrit($_POST['id_creneau'], $_POST['id_joueur']))
-            $reservation->modification($_POST['id_creneau'], $_POST['id_joueur'], $reservations, $reservations_org);
+        if ($reservation->deja_inscrit($_POST['id_creneau']))
+            $reservation->modification($_POST['id_creneau'], $reservations, $reservations_org);
         else
-            $reservation->inscription($_POST['id_creneau'], $_POST['id_joueur'], $reservations, $reservations_org, date('Y-m-d H:i:s'));
+            $reservation->inscription($_POST['id_creneau'], $reservations, $reservations_org, date('Y-m-d H:i:s'));
 	}
