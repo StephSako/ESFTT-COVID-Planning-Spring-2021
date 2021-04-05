@@ -19,6 +19,7 @@
 	<?php
 		setlocale(LC_TIME, "fr_FR", "French");
 		include('model/bd_planning.php');
+		include('model/Joueur.php');
 		
 		$joueurs = mysqli_query($co, 'SELECT * FROM joueurs ORDER BY nom_joueur') or die("Impossible d'exécuter la requête des joueurs.");
 		$creneaux = mysqli_query($co, 'SELECT * FROM creneaux ORDER BY jour_debut') or die("Impossible d'exécuter la requête des créaneaux.");
@@ -28,6 +29,8 @@
 		<div class="lobster titre">
 			<h4 class="center"><b>Planning de réservations - COVID 19</b></h4>
 			<h5 class="center lobster"><b>ESFTT - Reprise Printemps 2021</b></h5>
+
+			<h6 class="blue-text center lobster"><i>Bienvenue <?= $_SESSION['nom_joueur'] ?></i></h6>
 		</div>
 
 		<!--div class="semaine red lighten-4 cartouche_infos">
@@ -136,8 +139,8 @@
 
 									echo "<td style='font-size: 10pt'><b>" . $dateFormat->format('d/m/Y') . "</b><br>" . $dateFormat->format('H:i') . "</td>"; ?>
 									<td>
-										<form action="controler/planning/suppression.php" method="POST">
-										<input type="hidden" name="id_creneau" value="<?= $creneau['id_creneau'] ?>" />
+										<form action="controler/suppression.php" method="POST">
+											<input type="hidden" name="id_creneau" value="<?= $creneau['id_creneau'] ?>" />
 											<button onclick="return confirm('Supprimer votre réservation ?');" class="red darken-1 btn waves-effect waves-light" type="submit" name="id_joueur" value="<?php echo $reservation['id_joueur']; ?>"><i class="material-icons">cancel</i></button>
 										</form>
 									</td>
@@ -146,7 +149,7 @@
 					</tbody>
 				</table>
 
-				<form class="col s12" method="POST" action="controler/planning/inscription.php">
+				<form class="col s12" method="POST" action="controler/inscription.php">
 					<div class="row">
 						<div class="row valign-wrapper row_player">
 							<div class="input-field col s2">

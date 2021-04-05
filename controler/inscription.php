@@ -13,8 +13,8 @@
         }
         $reservation = new Reservation();
 
-        if ( $reservation->deja_inscrit($_POST['table'], $_POST['id_joueur'])
-            $reservation->modification($_POST['table'], $_POST['id_joueur'], $reservations, $reservations_org);
+        if ($reservation->deja_inscrit($_POST['id_creneau'], $_POST['id_joueur']))
+            $reservation->modification($_POST['id_creneau'], $_POST['id_joueur'], $reservations, $reservations_org);
         else
-            $reservation->inscription($_POST['table'], $_POST['id_joueur'], $reservations, $reservations_org, date('Y-m-d H:i:s'));
+            $reservation->inscription($_POST['id_creneau'], $_POST['id_joueur'], $reservations, $reservations_org, date('Y-m-d H:i:s'));
 	}
