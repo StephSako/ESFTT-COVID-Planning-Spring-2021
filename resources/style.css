@@ -80,3 +80,19 @@ h5, .title_semaine, .lobster {
 .page-footer {
     padding-top: 10px !important;
 }
+
+.datepicker-date-display, .timepicker-digital-display {
+    background-color: rgb(17, 116, 184) !important;
+}
+
+.datepicker-table td.is-selected {
+    background-color: rgb(17, 116, 184) !important;
+}
+
+.timepicker-canvas line {
+    stroke: rgb(17, 116, 184);
+}
+
+.timepicker-canvas-bg, .timepicker-canvas-bearing {
+    fill: rgb(17, 116, 184);
+}

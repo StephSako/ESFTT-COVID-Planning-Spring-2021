@@ -62,28 +62,29 @@
 
                             <?php
                                 for ($i = 0; $i < $nbCreneaux; $i++){ ?>
+                                    <h5 style="margin-top: 25px; margin-bottom: 0">Créneau n°<?= $i+1 ?></h5>
                                     <div class="row">
                                         <div class="col s4">
-                                            <p>Jour du créneau</p>
+                                            <p style="margin-top: 10px;">Jour du créneau</p>
                                             <input type="text" id="jour_<?= $i . $creneau['id_creneau'] ?>" class="datepicker">
                                         </div>
                                         <div class="col s4">
-                                            <p>Heure de début</p>
-                                            <input type="text" id="heure_debut<?= $i . $creneau['id_creneau'] ?>" class="datepicker">
+                                            <p style="margin-top: 10px;">Heure de début</p>
+                                            <input type="text" id="heure_debut<?= $i . $creneau['id_creneau'] ?>" class="timepicker">
                                         </div>
                                         <div class="col s4">
-                                            <p>Heure de fin</p>
-                                            <input type="text" id="heure_fin<?= $i . $creneau['id_creneau'] ?>" class="datepicker">
+                                            <p style="margin-top: 10px;">Heure de fin</p>
+                                            <input type="text" id="heure_fin<?= $i . $creneau['id_creneau'] ?>" class="timepicker">
                                         </div>
 
                                         <script>
                                             $(document).ready(function(){
-                                                $('#debut_datepicker<?= $i . $creneau['id_creneau'] ?>').datepicker('setDate', '<?= $creneau['jour_debut'] ?>');
-                                                $('#fin_datepicker<?= $i . $creneau['id_creneau'] ?>').datepicker('setDate', '<?= $creneau['jour_debut'] ?>');
+                                                $('#debut_datepicker<?= $creneau['id_creneau'] ?>').datepicker('setDate', '<?= $creneau['jour_debut'] ?>');
+                                                $('#fin_datepicker<?= $creneau['id_creneau'] ?>').datepicker('setDate', '<?= $creneau['jour_debut'] ?>');
 
                                                 $('#jour_<?= $i . $creneau['id_creneau'] ?>').datepicker('setDate', '<?= $creneau['creneau_' . $i . '_jour'] ?>');
-                                                $('#heure_debut<?= $i . $creneau['id_creneau'] ?>').datepicker('setDate', '<?= $creneau['creneau_' . $i . '_horaire_debut'] ?>');
-                                                $('#heure_fin<?= $i . $creneau['id_creneau'] ?>').datepicker('setDate', '<?= $creneau['creneau_' . $i . '_horaire_fin'] ?>');
+                                                $('#heure_debut<?= $i . $creneau['id_creneau'] ?>').val('<?= $creneau['creneau_' . $i . '_horaire_debut'] ?>');
+                                                $('#heure_fin<?= $i . $creneau['id_creneau'] ?>').val('<?= $creneau['creneau_' . $i . '_horaire_fin'] ?>');
                                                 
                                                 $('.datepicker').datepicker('setInputValue');
                                                 //$('.timepicker').timepicker('setInputValue');
