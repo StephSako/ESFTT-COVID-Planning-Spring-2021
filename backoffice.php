@@ -48,6 +48,10 @@
                             <a href="controler/deconnexion.php" style="margin-top: 5px" class="red btn waves-effect waves-light">Se déconnecter</a>
                             <a href="./index.php" style="margin-top: 5px" class="blue btn waves-effect waves-light">retour à l'accueil</a>
                         </div>
+
+                        <div class="card-panel center semaine">
+                            <p class="blue-text" style="margin-top: 0"><b>Seules les semaines ayant une date de début et de fin renseignées et dont la date de fin n'est pas encore passée seront affichées.<br>Ensuite, seuls les créneaux ayant un jour, un horaire de début et de fin renseignés seront affichés.</b></p>
+                        </div>
                 <?php
                     foreach ($creneaux as $creneau) { ?>
                         <form class="col s12" method="POST" action="controler/modification_creneau.php">
@@ -67,7 +71,7 @@
 
                                 <?php
                                     for ($i = 0; $i < $nbCreneaux; $i++){ ?>
-                                        <h5 style="margin-top: 25px; margin-bottom: 0">Créneau n°<?= $i+1 ?></h5>
+                                        <h5 style="margin-top: 30px; margin-bottom: 0">Créneau n°<?= $i+1 ?></h5>
                                         <div class="row">
                                             <div class="col s4">
                                                 <p style="margin-top: 10px;"><b>Jour du créneau</b></p>
