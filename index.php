@@ -107,7 +107,7 @@
 										<th></th>
 										<?php
 											for ($i = 0; $i < $nbCreneaux; $i++){
-												if ($creneau['creneau_' . $i . '_jour']) { ?>
+												if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
 													<th>
 														<?= ucwords(strftime("%A %e", strtotime($creneau['creneau_' . $i . '_jour']))) ?><br>
 														<span class="badge white-text grey darken-2"><?= $creneau['creneau_' . $i . '_horaire_debut'] ?>-<?= $creneau['creneau_' . $i . '_horaire_fin'] ?></span><br>
@@ -135,7 +135,7 @@
 												</td>
 												<?php
 													for ($i = 0; $i < $nbCreneaux; $i++){
-														if ($creneau['creneau_' . $i . '_jour']) {
+														if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) {
 															echo "<td class='td_resa'>";
 																if ($reservation['creneau_' . $i . '_ok']) { $i_th_joueurs[$i]++; ?> <i class="material-icons <?php if ($i_th_joueurs[$i] > 6) echo 'red-text lighten-3'; else echo 'green-text lighten-3'; ?>" >check_circle</i> <?php }
 																if ($reservation['creneau_' . $i . '_org']) echo "<i class='material-icons'>remove_red_eye</i>";
@@ -184,7 +184,7 @@
 										</div>
 										<?php
 											for ($i = 0; $i < $nbCreneaux; $i++){
-												if ($creneau['creneau_' . $i . '_jour']) { ?>
+												if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
 													<div class="input-field col s2">
 														<p>
 															<label>
