@@ -61,4 +61,6 @@ $(document).ready(function(){
             done: 'OK'
         }
     });
+
+    $('.collapsible').collapsible();
 });

@@ -36,7 +36,7 @@
             include('model/bd_planning.php');
             include('model/Joueur.php');
 
-            $creneaux = mysqli_query($co, 'SELECT * FROM creneaux ORDER BY jour_debut, jour_fin') or die("Impossible d'exécuter la requête des créaneaux.");
+            $creneaux = mysqli_query($co, 'SELECT * FROM creneaux ORDER BY id_creneau') or die("Impossible d'exécuter la requête des créaneaux.");
 
             if (empty($_SESSION)) header('Location:../index.php');
             else {
@@ -50,8 +50,53 @@
                         </div>
 
                         <div class="card-panel center semaine">
-                            <p class="blue-text" style="margin-top: 0"><b>Seules les semaines ayant une date de début et de fin renseignées et dont la date de fin n'est pas encore passée seront affichées.<br>Ensuite, seuls les créneaux ayant un jour, un horaire de début et de fin renseignés seront affichés.</b></p>
+                            <p class="blue-text" style="margin-top: 0"><b>Seules les semaines ayant une date de début et de fin renseignées et dont la date de fin n'est pas encore passée seront affichées.
+                            <br>Ensuite, seuls les créneaux ayant un jour, un horaire de début et de fin renseignés seront affichés.
+                            Il est possible de créer entre 0 et 5 créneaux par semaine.</b></p>
                         </div>
+
+                        <ul class="collapsible">
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">date_range</i>Créer un créneau</div>
+                                <div class="collapsible-body center" style="background-color: white;">
+                                    <form class="col s12" method="POST" action="controler/creation_creneau.php">
+                                            <h5>Nouveau créneau</h5>
+
+                                            <div class="row">
+                                                <div class="col s6">
+                                                    <p><b>Jour du début</b></p>
+                                                    <input type="text" name="jour_debut" class="datepicker">
+                                                </div>
+                                                <div class="col s6">
+                                                    <p><b>Jour de fin</b></p>
+                                                    <input type="text" name="jour_fin" class="datepicker">
+                                                </div>
+                                            </div>
+
+                                            <?php
+                                                for ($i = 0; $i < $nbCreneaux; $i++){ ?>
+                                                    <h5 style="margin-top: 30px; margin-bottom: 0">Créneau n°<?= $i+1 ?></h5>
+                                                    <div class="row">
+                                                        <div class="col s4">
+                                                            <p style="margin-top: 10px;"><b>Jour du créneau</b></p>
+                                                            <input type="text" name="jour<?= $i ?>"class="datepicker">
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p style="margin-top: 10px;"><b>Heure de début</b></p>
+                                                            <input type="text" name="horaire_debut<?= $i ?>" class="timepicker">
+                                                        </div>
+                                                        <div class="col s4">
+                                                            <p style="margin-top: 10px;"><b>Heure de fin</b></p>
+                                                            <input type="text" name="horaire_fin<?= $i ?>" class="timepicker">
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+
+                                            <button style="margin-top: 5px" class="green btn waves-effect waves-light">Créer</button>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
                 <?php
                     foreach ($creneaux as $creneau) { ?>
                         <form class="col s12" method="POST" action="controler/modification_creneau.php">
@@ -101,9 +146,9 @@
                                         </div>
                                     <?php } ?>
 
-                                    <button name="id_creneau" value="<?= $creneau['id_creneau'] ?>" style="margin-top: 5px" class="blue btn waves-effect waves-light">Enregistrer</button>
+                                <button name="id_creneau" value="<?= $creneau['id_creneau'] ?>" style="margin-top: 5px" class="blue btn waves-effect waves-light">Enregistrer</button>
+                            </div>
                         </form>
-                    </div>
                     <?php } ?>
                 <?php } ?>
                 <footer class="page-footer grey lighten-3">
