@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $('.datepicker').datepicker({
+        format: 'd/m/yyyy',
         i18n: {
             cancel: 'Annuler',
             done: 'OK',
@@ -59,5 +60,5 @@ $(document).ready(function(){
             cancel: 'Annuler',
             done: 'OK'
         }
-      });
+    });
 });

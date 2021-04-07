@@ -165,7 +165,7 @@
 										</div>
 										<?php
 											for ($i = 0; $i < $nbCreneaux; $i++){
-												if ($creneau['creneau_' . $i . '_jour']) { ?>
+												if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
 													<div class="input-field col s2">
 														<p>
 															<label>
@@ -199,7 +199,7 @@
 									</div>
 
 									<div class="center btn_register">
-										<button class="btn waves-effect waves-light" type="submit" name="action">Enregistrer
+										<button class="btn blue waves-effect waves-light" type="submit" name="action">Enregistrer
 											<i class="material-icons right">send</i>
 										</button>
 									</div>
