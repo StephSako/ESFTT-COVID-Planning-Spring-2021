@@ -33,7 +33,10 @@
 				$strSet .= ", " . ($jour[$i] ? "'" . $jour[$i] . "'" : "NULL");
 				$strSet .= ($i < $this->nbCreneaux-1 ? ", " : "");
 			}
-			var_dump("INSERT INTO creneaux (jour_debut, jour_fin, " . $strColumn . ") VALUES ('" . $jour_debut . "', '" . $jour_fin . "', " . $strSet . ")");
 			mysqli_query($this->co, "INSERT INTO creneaux (jour_debut, jour_fin, " . $strColumn . ") VALUES ('" . $jour_debut . "', '" . $jour_fin . "', " . $strSet . ")") or die('Impossible de créer le créneau.');
+		}
+
+		public function suppression($id_creneau){
+			mysqli_query($this->co, 'DELETE FROM creneaux WHERE id_creneau = ' . $id_creneau) or die('Impossible de supprimer le créneau.');
 		}
 	}

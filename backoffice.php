@@ -36,7 +36,7 @@
             include('model/bd_planning.php');
             include('model/Joueur.php');
 
-            $creneaux = mysqli_query($co, 'SELECT * FROM creneaux ORDER BY id_creneau') or die("Impossible d'exécuter la requête des créaneaux.");
+            $creneaux = mysqli_query($co, 'SELECT * FROM creneaux ORDER BY jour_debut, jour_fin, id_creneau') or die("Impossible d'exécuter la requête des créaneaux.");
 
             if (empty($_SESSION)) header('Location:../index.php');
             else {
@@ -52,7 +52,7 @@
                         <div class="card-panel center semaine">
                             <p class="blue-text" style="margin-top: 0"><b>Seules les semaines ayant une date de début et de fin renseignées et dont la date de fin n'est pas encore passée seront affichées.
                             <br>Ensuite, seuls les créneaux ayant un jour, un horaire de début et de fin renseignés seront affichés.
-                            Il est possible de créer entre 0 et 5 créneaux par semaine.</b></p>
+                            <br>Il est possible de créer entre 0 et 5 créneaux par semaine.</b></p>
                         </div>
 
                         <ul class="collapsible">
@@ -99,9 +99,9 @@
                         </ul>
                 <?php
                     foreach ($creneaux as $creneau) { ?>
-                        <form class="col s12" method="POST" action="controler/modification_creneau.php">
-                            <div class="card-panel center semaine">
-                                <h5>Créneaux de la semaine n°<?= $creneau['id_creneau'] ?></h5>
+                        <div class="card-panel center semaine">
+                            <form class="col s12" method="POST" action="controler/modification_creneau.php">
+                                <h5>Créneaux de la semaine</h5>
 
                                 <div class="row">
                                     <div class="col s6">
@@ -145,10 +145,12 @@
                                             </script>
                                         </div>
                                     <?php } ?>
-
                                 <button name="id_creneau" value="<?= $creneau['id_creneau'] ?>" style="margin-top: 5px" class="blue btn waves-effect waves-light">Enregistrer</button>
-                            </div>
-                        </form>
+                            </form>
+                            <form action="controler/suppression_creneau.php" method="POST">
+                                <button style="margin-top: 10px" onclick="return confirm('Supprimer le créneau ?');" class="red darken-1 btn waves-effect waves-light" type="submit" name="id_creneau" value="<?= $creneau['id_creneau'] ?>">Supprimer</button>
+                            </form>
+                        </div>
                     <?php } ?>
                 <?php } ?>
                 <footer class="page-footer grey lighten-3">
