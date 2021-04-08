@@ -110,15 +110,15 @@
 													if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
 														<th>
 															<?php
-																echo ucwords(strftime("%A %e", strtotime($creneau['creneau_' . $i . '_jour'])));
+																echo ucwords(strftime("%a %e", strtotime($creneau['creneau_' . $i . '_jour'])));
 																if ($i == 0) echo " matin";
-																else if ($i == 1) echo " après-midi";
+																else if ($i == 1) echo " apr.midi";
 																else if ($i == 2) echo " matin";
-																else if ($i == 3) echo " après-midi";
+																else if ($i == 3) echo " apr.midi";
 																else if ($i == 4) echo " matin";
-																else if ($i == 5) echo " après-midi";
+																else if ($i == 5) echo " apr.midi";
 																else if ($i == 6) echo " matin";
-																else if ($i == 7) echo " après-midi";
+																else if ($i == 7) echo " apr.midi";
 															?><br>
 															<span class="badge white-text grey darken-2"><?= $creneau['creneau_' . $i . '_horaire_debut'] ?>-<?= $creneau['creneau_' . $i . '_horaire_fin'] ?></span><br>
 															<span class="badge <?php if ($rowCountInscr['nb_creneau_' . $i . '_ok'] > 6) echo "red-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr['nb_creneau_' . $i . '_ok'] != null ? $rowCountInscr['nb_creneau_' . $i . '_ok'] : '0') . ' joueurs'; ?></span><br>
@@ -171,7 +171,7 @@
 									<div class="row">
 										<div class="row valign-wrapper row_player">
 											<div class="input-field col s2" style="padding-left: 0">
-												<p class="center">Je souhaite jouer :</p>
+												<p class="center">Je joue :</p>
 											</div>
 											<?php
 												for ($i = 0; $i < $nbCreneaux; $i++){
@@ -181,15 +181,15 @@
 																<label>
 																	<input type="checkbox" name="<?= 'creneau_' . $i ?>" <?php if (boolval($row_connected_user['creneau_' . $i . '_ok'])){ echo "checked=\"checked\""; } ?> />
 																	<span><?php
-																			echo ucwords(strftime("%A", strtotime($creneau['creneau_' . $i . '_jour'])));
+																			echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
 																			if ($i == 0) echo " matin";
-																			else if ($i == 1) echo " après-midi";
+																			else if ($i == 1) echo " apr.midi";
 																			else if ($i == 2) echo " matin";
-																			else if ($i == 3) echo " après-midi";
+																			else if ($i == 3) echo " apr.midi";
 																			else if ($i == 4) echo " matin";
-																			else if ($i == 5) echo " après-midi";
+																			else if ($i == 5) echo " apr.midi";
 																			else if ($i == 6) echo " matin";
-																			else if ($i == 7) echo " après-midi";
+																			else if ($i == 7) echo " apr.midi";
 																		?></span>
 																</label>
 															</p>
@@ -200,7 +200,7 @@
 
 										<div class="row valign-wrapper row_org">
 											<div class="input-field col s2" style="padding-left: 0">
-												<p class="center">Je me propose responsable :</p>
+												<p class="center">Je suis responsable :</p>
 											</div>
 											<?php
 												for ($i = 0; $i < $nbCreneaux; $i++){
@@ -210,15 +210,15 @@
 																<label>
 																	<input type="checkbox" name="<?= 'creneau_' . $i . '_org' ?>" <?php if (boolval($row_connected_user['creneau_' . $i . '_org'])){ echo "checked=\"checked\""; } ?> />
 																	<span><?php
-																			echo ucwords(strftime("%A", strtotime($creneau['creneau_' . $i . '_jour'])));
+																			echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
 																			if ($i == 0) echo " matin";
-																			else if ($i == 1) echo " après-midi";
+																			else if ($i == 1) echo " apr.midi";
 																			else if ($i == 2) echo " matin";
-																			else if ($i == 3) echo " après-midi";
+																			else if ($i == 3) echo " apr.midi";
 																			else if ($i == 4) echo " matin";
-																			else if ($i == 5) echo " après-midi";
+																			else if ($i == 5) echo " apr.midi";
 																			else if ($i == 6) echo " matin";
-																			else if ($i == 7) echo " après-midi";
+																			else if ($i == 7) echo " apr.midi";
 																		?></span>
 																</label>
 															</p>
