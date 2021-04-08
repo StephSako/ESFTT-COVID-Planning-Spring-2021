@@ -54,13 +54,13 @@ $(document).ready(function(){
         }
     });
 
-    $('.timepicker').timepicker({
+    /*$('.timepicker').timepicker({
         twelveHour: false,
         i18n: {
             cancel: 'Annuler',
             done: 'OK'
         }
-    });
+    });*/
 
     $('.collapsible').collapsible();
 });

@@ -51,14 +51,15 @@
 							<li>Cocher/décocher les créneaux pour lesquels :
 								<ul class="browser-default">
 									<li>vous souhaitez jouer</li>
-									<li>vous vous proposez être <b>responsable (personnes habituées à la gestion au club, détentrices d'un badge d'ouverture de salle, du code d'alarme/du placard)</b> : mise en application des <a href="https://cdn.fbsbx.com/v/t59.2708-21/163722723_2854003158150138_7452564991527498697_n.pdf/affiche-reprise-en-exterieur.pdf?_nc_cat=107&ccb=1-3&_nc_sid=0cab14&_nc_ohc=GgQ-sbTqfyUAX-wRZsG&_nc_ht=cdn.fbsbx.com&oh=ab13ec5e489214e71a29b8d8588002be&oe=606D06BB&dl=1">consignes d'hygiène</a> réglementées par la <a href="http://www.fftt.com/site/accueil">FFTT.</a>
-									<br><b>Au moins 1 responsable</b> est <b>obligatoire</b> par créneau.</li>
+									<li>vous vous proposez être <b>responsable (personnes habituées à la gestion au club, détentrices d'un badge d'ouverture de salle, du code d'alarme/du placard)</b> : mise en application des <a href="./affiche-reprise-en-exterieur.pdf" target="blank">consignes d'hygiène</a> réglementées par la <a href="http://www.fftt.com/site/accueil">FFTT.</a></li>
 								</ul>
 							</li>
 							<li>Valider en cliquant sur <b>ENREGISTRER</b>.</li>
 						</ol>
 					</blockquote>
 
+					<h6 class="red-text center"><b><u>Attention : un créneau sera annulé si aucun responsable</u> (symbole <i style="vertical-align: text-top;" class="black-text material-icons">remove_red_eye</i> ) <u>n'est marqué disponible pour ledit créneau.</u></b></h6>
+					
 					<blockquote>Cependant, seulement <b>6 joueurs</b> par créneau seront autorisés à accéder aux tables. C'est pourquoi les <b>6 premières personnes inscrites</b> seront prioritaires pour chaque créneau. Soyez alertes dans la journée pour d'éventuels désistements.</blockquote>
 
 					<p class="blue-text center" style="padding: 0;"><span style="font-size: 20px">📣</span> Nous comptons sur <b>chacun d'entre vous</b>, tant joueurs que responsables, pour installer et désinstaller le matériel en début et fin de séance. 😉</p>
@@ -68,7 +69,7 @@
 
 				<div class="semaine">
 					<div class="row">
-						<div class="col s2 center"><h5><b>Légendes</b></h5></div>
+						<div class="col s2 center"><h5 class="lobster"><b>Légendes</b></h5></div>
 						<div class="col s3 center"><p><i class="material-icons green-text lighten-3">check_circle</i><br>Joueur prioritaire <b>du créneau</b></p></div>
 						<div class="col s4 center"><p><i class="material-icons red-text lighten-3">check_circle</i><br>Joueur non prioritaire <b>du créneau</b></p></div>
 						<div class="col s3 center"><p><i class="material-icons">remove_red_eye</i><br>Responsable</p></div>
@@ -98,7 +99,7 @@
 							$rowCountInscr_org = mysqli_fetch_assoc(mysqli_query($co, "SELECT " . $subQueryInscr_org . " FROM reservations r WHERE r.id_creneau = " . $creneau['id_creneau'] . " LIMIT 1"));
 					?>
 							<div class="semaine">
-								<h4 class="center lobster">Du <?= ucwords(strftime("%e %B", strtotime($creneau['jour_debut']))) ?> au <?= ucwords(strftime("%e %B", strtotime($creneau['jour_fin']))) ?></h4>
+								<h5 class="center lobster">Semaine du <?= ucwords(strftime("%A %e %B", strtotime($creneau['jour_debut']))) ?> au <?= ucwords(strftime("%A %e %B", strtotime($creneau['jour_fin']))) ?></h5>
 								
 								<table class="centered">
 									<thead>
@@ -108,7 +109,17 @@
 												for ($i = 0; $i < $nbCreneaux; $i++){
 													if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
 														<th>
-															<?= ucwords(strftime("%A %e", strtotime($creneau['creneau_' . $i . '_jour']))) ?><br>
+															<?php
+																echo ucwords(strftime("%A %e", strtotime($creneau['creneau_' . $i . '_jour'])));
+																if ($i == 0) echo " matin";
+																else if ($i == 1) echo " après-midi";
+																else if ($i == 2) echo " matin";
+																else if ($i == 3) echo " après-midi";
+																else if ($i == 4) echo " matin";
+																else if ($i == 5) echo " après-midi";
+																else if ($i == 6) echo " matin";
+																else if ($i == 7) echo " après-midi";
+															?><br>
 															<span class="badge white-text grey darken-2"><?= $creneau['creneau_' . $i . '_horaire_debut'] ?>-<?= $creneau['creneau_' . $i . '_horaire_fin'] ?></span><br>
 															<span class="badge <?php if ($rowCountInscr['nb_creneau_' . $i . '_ok'] > 6) echo "red-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr['nb_creneau_' . $i . '_ok'] != null ? $rowCountInscr['nb_creneau_' . $i . '_ok'] : '0') . ' joueurs'; ?></span><br>
 															<span class="badge <?php if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] == 0 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "red-text darken-1"; else if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] < 1 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "orange-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr_org['nb_creneau_' . $i . '_org'] != null ? $rowCountInscr_org['nb_creneau_' . $i . '_org'] : '0') . ' resp.'; ?></span>
@@ -159,7 +170,7 @@
 								<form class="col s12" method="POST" action="controler/inscription.php">
 									<div class="row">
 										<div class="row valign-wrapper row_player">
-											<div class="input-field col s3" style="padding-left: 0">
+											<div class="input-field col s2" style="padding-left: 0">
 												<p class="center">Je souhaite jouer :</p>
 											</div>
 											<?php
@@ -169,7 +180,17 @@
 															<p>
 																<label>
 																	<input type="checkbox" name="<?= 'creneau_' . $i ?>" <?php if (boolval($row_connected_user['creneau_' . $i . '_ok'])){ echo "checked=\"checked\""; } ?> />
-																	<span><?= ucwords(strftime("%A %e", strtotime($creneau['creneau_' . $i . '_jour']))) ?></span>
+																	<span><?php
+																			echo ucwords(strftime("%A", strtotime($creneau['creneau_' . $i . '_jour'])));
+																			if ($i == 0) echo " matin";
+																			else if ($i == 1) echo " après-midi";
+																			else if ($i == 2) echo " matin";
+																			else if ($i == 3) echo " après-midi";
+																			else if ($i == 4) echo " matin";
+																			else if ($i == 5) echo " après-midi";
+																			else if ($i == 6) echo " matin";
+																			else if ($i == 7) echo " après-midi";
+																		?></span>
 																</label>
 															</p>
 														</div>
@@ -178,7 +199,7 @@
 										</div>
 
 										<div class="row valign-wrapper row_org">
-											<div class="input-field col s3" style="padding-left: 0">
+											<div class="input-field col s2" style="padding-left: 0">
 												<p class="center">Je me propose responsable :</p>
 											</div>
 											<?php
@@ -188,7 +209,17 @@
 															<p>
 																<label>
 																	<input type="checkbox" name="<?= 'creneau_' . $i . '_org' ?>" <?php if (boolval($row_connected_user['creneau_' . $i . '_org'])){ echo "checked=\"checked\""; } ?> />
-																	<span><?= ucwords(strftime("%A %e", strtotime($creneau['creneau_' . $i . '_jour']))) ?></span>
+																	<span><?php
+																			echo ucwords(strftime("%A", strtotime($creneau['creneau_' . $i . '_jour'])));
+																			if ($i == 0) echo " matin";
+																			else if ($i == 1) echo " après-midi";
+																			else if ($i == 2) echo " matin";
+																			else if ($i == 3) echo " après-midi";
+																			else if ($i == 4) echo " matin";
+																			else if ($i == 5) echo " après-midi";
+																			else if ($i == 6) echo " matin";
+																			else if ($i == 7) echo " après-midi";
+																		?></span>
 																</label>
 															</p>
 														</div>

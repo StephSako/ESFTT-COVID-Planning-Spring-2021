@@ -73,7 +73,7 @@ footer .container .row {
     padding-bottom: 15px;
 }
 
-h5, .title_semaine, .lobster {
+.title_semaine, .lobster {
     font-family: Lobster, cursive;
 }
 
