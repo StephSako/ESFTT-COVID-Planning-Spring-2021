@@ -177,123 +177,114 @@
 								</table>
 
 								<form class="col s12" method="POST" action="controler/inscription.php">
+									<div class="row valign-wrapper row_player">
+										<div class="input-field col s2" style="padding-left: 0">
+											<p class="center">Je joue :</p>
+										</div>
+										<?php
+											for ($i = 0; $i < $nbCreneaux; $i++){
+												if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
+													<div class="input-field col s2">
+														<p>
+															<label>
+																<input id="check_ok<?= $i . $creneau['id_creneau'] ?>" type="checkbox" name="<?= 'creneau_' . $i . '_ok' ?>" <?php if ($row_connected_user['creneau_' . $i . '_ok']  != 0){ echo "checked=\"checked\""; } ?> />
+																<span><?php
+																		echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
+																		if ($i == 0) echo " matin";
+																		else if ($i == 1) echo " apr.midi";
+																		else if ($i == 2) echo " matin";
+																		else if ($i == 3) echo " apr.midi";
+																		else if ($i == 4) echo " matin";
+																		else if ($i == 5) echo " apr.midi";
+																		else if ($i == 6) echo " matin";
+																		else if ($i == 7) echo " apr.midi";
+																	?></span>
+															</label>
+														</p>
+													</div>
+												<?php }
+											} ?>
+									</div>
+
+									<div class="row valign-wrapper row_org">
+										<div class="input-field col s2" style="padding-left: 0">
+											<p class="center">Je suis responsable :</p>
+										</div>
+										<?php
+											for ($i = 0; $i < $nbCreneaux; $i++){
+												if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
+													<div class="input-field col s2">
+														<p>
+															<label>
+																<input id="check_org<?= $i . $creneau['id_creneau'] ?>" type="checkbox" name="<?= 'creneau_' . $i . '_org' ?>" <?php if ($row_connected_user['creneau_' . $i . '_org'] != 0){ echo "checked=\"checked\""; } ?> />
+																<span><?php
+																		echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
+																		if ($i == 0) echo " matin";
+																		else if ($i == 1) echo " apr.midi";
+																		else if ($i == 2) echo " matin";
+																		else if ($i == 3) echo " apr.midi";
+																		else if ($i == 4) echo " matin";
+																		else if ($i == 5) echo " apr.midi";
+																		else if ($i == 6) echo " matin";
+																		else if ($i == 7) echo " apr.midi";
+																	?></span>
+															</label>
+														</p>
+													</div>
+												<?php }
+											} ?>
+										<input type="hidden" name="id_creneau" value="<?= $creneau['id_creneau'] ?>" />
+									</div>
+
 									<div class="row">
 									<div class="row valign-wrapper row_player">
-											<div class="input-field col s2" style="padding-left: 0">
-												<p class="center">Je suis indisponible :</p>
-											</div>
-											<?php
-												for ($i = 0; $i < $nbCreneaux; $i++){
-													if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
-														<div class="input-field col s2">
-															<p>
-																<label>
-																	<input id="check_indispo<?= $i . $creneau['id_creneau'] ?>" type="checkbox" name="<?= 'creneau_' . $i . '_indispo' ?>" <?php if ($row_connected_user['creneau_' . $i . '_ok'] == 2){ echo "checked=\"checked\""; } ?> />
-																	<span>
-																		<?php
-																			echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
-																			if ($i == 0) echo " matin";
-																			else if ($i == 1) echo " apr.midi";
-																			else if ($i == 2) echo " matin";
-																			else if ($i == 3) echo " apr.midi";
-																			else if ($i == 4) echo " matin";
-																			else if ($i == 5) echo " apr.midi";
-																			else if ($i == 6) echo " matin";
-																			else if ($i == 7) echo " apr.midi";
-																		?>
-																	</span>
-																</label>
-															</p>
-
-															<script>
-																$('#check_indispo<?= $i . $creneau['id_creneau'] ?>').on('change', function () {
-																	if ($('#check_indispo<?= $i . $creneau['id_creneau'] ?>').is(":checked")){
-																		$('#check_ok<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', true);
-																		$('#check_org<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', true);
-																	}
-																	else {
-																		$('#check_ok<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', false);
-																		$('#check_org<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', false);
-																	}
-																});
-															</script>
-
-														</div>
-													<?php }
-												} ?>
+										<div class="input-field col s2" style="padding-left: 0">
+											<p class="center">Je suis indisponible :</p>
 										</div>
+										<?php
+											for ($i = 0; $i < $nbCreneaux; $i++){
+												if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
+													<div class="input-field col s2">
+														<p>
+															<label>
+																<input id="check_indispo<?= $i . $creneau['id_creneau'] ?>" type="checkbox" name="<?= 'creneau_' . $i . '_indispo' ?>" <?php if ($row_connected_user['creneau_' . $i . '_ok'] == 2){ echo "checked=\"checked\""; } ?> />
+																<span>
+																	<?php
+																		echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
+																		if ($i == 0) echo " matin";
+																		else if ($i == 1) echo " apr.midi";
+																		else if ($i == 2) echo " matin";
+																		else if ($i == 3) echo " apr.midi";
+																		else if ($i == 4) echo " matin";
+																		else if ($i == 5) echo " apr.midi";
+																		else if ($i == 6) echo " matin";
+																		else if ($i == 7) echo " apr.midi";
+																	?>
+																</span>
+															</label>
+														</p>
 
-										<div class="row valign-wrapper row_player">
-											<div class="input-field col s2" style="padding-left: 0">
-												<p class="center">Je joue :</p>
-											</div>
-											<?php
-												for ($i = 0; $i < $nbCreneaux; $i++){
-													if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
-														<div class="input-field col s2">
-															<p>
-																<label>
-																	<input id="check_ok<?= $i . $creneau['id_creneau'] ?>" type="checkbox" name="<?= 'creneau_' . $i . '_ok' ?>" <?php if ($row_connected_user['creneau_' . $i . '_ok']  != 0){ echo "checked=\"checked\""; } ?> />
-																	<span><?php
-																			echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
-																			if ($i == 0) echo " matin";
-																			else if ($i == 1) echo " apr.midi";
-																			else if ($i == 2) echo " matin";
-																			else if ($i == 3) echo " apr.midi";
-																			else if ($i == 4) echo " matin";
-																			else if ($i == 5) echo " apr.midi";
-																			else if ($i == 6) echo " matin";
-																			else if ($i == 7) echo " apr.midi";
-																		?></span>
-																</label>
-															</p>
+														<script>
+															if ($('#check_indispo<?= $i . $creneau['id_creneau'] ?>').is(":checked") ){
+																$('#check_ok<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', true);
+																$('#check_org<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', true);
+															}
 
-															<script>
-																if ($('#check_indispo<?= $i . $creneau['id_creneau'] ?>').is(":checked") ){
+															$('#check_indispo<?= $i . $creneau['id_creneau'] ?>').on('change', function () {
+																if ($('#check_indispo<?= $i . $creneau['id_creneau'] ?>').is(":checked")){
 																	$('#check_ok<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', true);
-																}
-															</script>
-
-														</div>
-													<?php }
-												} ?>
-										</div>
-
-										<div class="row valign-wrapper row_org">
-											<div class="input-field col s2" style="padding-left: 0">
-												<p class="center">Je suis responsable :</p>
-											</div>
-											<?php
-												for ($i = 0; $i < $nbCreneaux; $i++){
-													if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
-														<div class="input-field col s2">
-															<p>
-																<label>
-																	<input id="check_org<?= $i . $creneau['id_creneau'] ?>" type="checkbox" name="<?= 'creneau_' . $i . '_org' ?>" <?php if ($row_connected_user['creneau_' . $i . '_org'] != 0){ echo "checked=\"checked\""; } ?> />
-																	<span><?php
-																			echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
-																			if ($i == 0) echo " matin";
-																			else if ($i == 1) echo " apr.midi";
-																			else if ($i == 2) echo " matin";
-																			else if ($i == 3) echo " apr.midi";
-																			else if ($i == 4) echo " matin";
-																			else if ($i == 5) echo " apr.midi";
-																			else if ($i == 6) echo " matin";
-																			else if ($i == 7) echo " apr.midi";
-																		?></span>
-																</label>
-															</p>
-
-															<script>
-																if ($('#check_indispo<?= $i . $creneau['id_creneau'] ?>').is(":checked") ){
 																	$('#check_org<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', true);
 																}
-															</script>
+																else {
+																	$('#check_ok<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', false);
+																	$('#check_org<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', false);
+																}
+															});
+														</script>
 
-														</div>
-													<?php }
-												} ?>
-											<input type="hidden" name="id_creneau" value="<?= $creneau['id_creneau'] ?>" />
+													</div>
+												<?php }
+											} ?>
 										</div>
 
 										<div class="center btn_register">
