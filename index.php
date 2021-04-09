@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="fr">
 
-<head>
-	<meta charset="UTF-8">
-	<title>ESFTT Planning 2021</title>
-	<link rel="icon" href="resources/icons/icon.svg">
-	<!--Import Google Icon Font-->
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lobster" />
-	<!--Import materialize.css-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<!--Import my own style.css-->
-	<link type="text/css" rel="stylesheet" href="resources/style.css" media="screen,projection" />
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>ESFTT Planning 2021</title>
+		<link rel="icon" href="resources/icons/icon.svg">
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lobster" />
+		<!--Import materialize.css-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<!--Import my own style.css-->
+		<link type="text/css" rel="stylesheet" href="resources/style.css" media="screen,projection" />
+		<!--Scripts trigger de Materialize-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+	</head>
 
-<body>
+	<body>
 
 		<div class="container">
 
@@ -44,7 +47,7 @@
 				<div class="semaine cartouche_infos">
 					<h5 class="center lobster"><b>Règlement</b></h5>
 
-					<blockquote>Afin d'accéder aux tables installées <b>en extérieur</b>, vous devez vous inscrire pour les créneaux de votre choix à la semaine.</blockquote>
+					<blockquote>Afin d'accéder aux tables installées <b>en extérieur (selon les conditions météorologiques)</b>, vous devez vous inscrire pour les créneaux de votre choix à la semaine.</blockquote>
 					
 					<blockquote>Pour chaque créneau, veuillez simplement :
 						<ol>
@@ -69,10 +72,11 @@
 
 				<div class="semaine">
 					<div class="row">
-						<div class="col s2 center"><h5 class="lobster"><b>Légendes</b></h5></div>
-						<div class="col s3 center"><p><i class="material-icons green-text lighten-3">check_circle</i><br>Joueur prioritaire <b>du créneau</b></p></div>
-						<div class="col s4 center"><p><i class="material-icons red-text lighten-3">check_circle</i><br>Joueur non prioritaire <b>du créneau</b></p></div>
-						<div class="col s3 center"><p><i class="material-icons">remove_red_eye</i><br>Responsable</p></div>
+						<div class="col s4 center"><h5 class="lobster"><b>Légendes pour chaque créneau</b></h5></div>
+						<div class="col s2 center"><p><i class="material-icons grey-text lighten-3">highlight_off</i><br>Joueur indisponible</p></div>
+						<div class="col s2 center"><p><i class="material-icons green-text lighten-3">check_circle</i><br>Joueur prioritaire</p></div>
+						<div class="col s2 center"><p><i class="material-icons red-text lighten-3">check_circle</i><br>Joueur non prioritaire</p></div>
+						<div class="col s2 center"><p><i class="material-icons">remove_red_eye</i><br>Responsable</p></div>
 					</div>
 				</div>
 
@@ -124,9 +128,7 @@
 															<span class="badge <?php if ($rowCountInscr['nb_creneau_' . $i . '_ok'] > 6) echo "red-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr['nb_creneau_' . $i . '_ok'] != null ? $rowCountInscr['nb_creneau_' . $i . '_ok'] : '0') . ' joueurs'; ?></span><br>
 															<span class="badge <?php if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] == 0 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "red-text darken-1"; else if ($rowCountInscr_org['nb_creneau_' . $i . '_org'] < 1 && $rowCountInscr['nb_creneau_' . $i . '_ok'] > 0) echo "orange-text darken-1"; else echo "green-text lighten-3"; ?>"><?php echo ($rowCountInscr_org['nb_creneau_' . $i . '_org'] != null ? $rowCountInscr_org['nb_creneau_' . $i . '_org'] : '0') . ' resp.'; ?></span>
 														</th>
-												<?php }
-												}
-											?>
+												<?php } } ?>
 											<th></th>
 											<th></th>
 										</tr>
@@ -145,15 +147,22 @@
 													</td>
 													<?php
 														for ($i = 0; $i < $nbCreneaux; $i++){
-															if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) {
-																echo "<td class='td_resa'>";
-																	if ($reservation['creneau_' . $i . '_ok']) { $i_th_joueurs[$i]++; ?> <i class="material-icons <?php if ($i_th_joueurs[$i] > 6) echo 'red-text lighten-3'; else echo 'green-text lighten-3'; ?>" >check_circle</i> <?php }
-																	if ($reservation['creneau_' . $i . '_org']) echo "<i class='material-icons'>remove_red_eye</i>";
-																echo "</td>";
-															}
-														}
+															if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
+																<td class='td_resa'>
+																	<?php
+																		if ($reservation['creneau_' . $i . '_ok'] == 2) echo "<i class='grey-text  lighten-3 material-icons'>highlight_off</i>";
+																		else{
+																			if ($reservation['creneau_' . $i . '_ok'] == 1) {
+																				$i_th_joueurs[$i]++; ?>
+																				<i class="material-icons <?= $i_th_joueurs[$i] > 6 ? 'red-text lighten-3' : 'green-text lighten-3' ?>" >check_circle</i>
+																		<?php }
+																			if ($reservation['creneau_' . $i . '_org'] == 1) { echo "<i class='material-icons'>remove_red_eye</i>"; }
+																		} ?>
+																</td>
+															<?php }
+														} ?>
 
-													echo "<td style='font-size: 10pt'><b>" . $dateFormat->format('d/m') . "</b><br>" . $dateFormat->format('H:i') . "</td>"; ?>
+													<td style='font-size: 10pt'><b><?= $dateFormat->format('d/m') ?></b><br><?= $dateFormat->format('H:i') ?></td>
 													<td>
 														<?php
 															if ($_SESSION['id_joueur'] == $reservation['id_joueur']) { ?>
@@ -169,6 +178,51 @@
 
 								<form class="col s12" method="POST" action="controler/inscription.php">
 									<div class="row">
+									<div class="row valign-wrapper row_player">
+											<div class="input-field col s2" style="padding-left: 0">
+												<p class="center">Je suis indisponible :</p>
+											</div>
+											<?php
+												for ($i = 0; $i < $nbCreneaux; $i++){
+													if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
+														<div class="input-field col s2">
+															<p>
+																<label>
+																	<input id="check_indispo<?= $i . $creneau['id_creneau'] ?>" type="checkbox" name="<?= 'creneau_' . $i . '_indispo' ?>" <?php if ($row_connected_user['creneau_' . $i . '_ok'] == 2){ echo "checked=\"checked\""; } ?> />
+																	<span>
+																		<?php
+																			echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
+																			if ($i == 0) echo " matin";
+																			else if ($i == 1) echo " apr.midi";
+																			else if ($i == 2) echo " matin";
+																			else if ($i == 3) echo " apr.midi";
+																			else if ($i == 4) echo " matin";
+																			else if ($i == 5) echo " apr.midi";
+																			else if ($i == 6) echo " matin";
+																			else if ($i == 7) echo " apr.midi";
+																		?>
+																	</span>
+																</label>
+															</p>
+
+															<script>
+																$('#check_indispo<?= $i . $creneau['id_creneau'] ?>').on('change', function () {
+																	if ($('#check_indispo<?= $i . $creneau['id_creneau'] ?>').is(":checked")){
+																		$('#check_ok<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', true);
+																		$('#check_org<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', true);
+																	}
+																	else {
+																		$('#check_ok<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', false);
+																		$('#check_org<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', false);
+																	}
+																});
+															</script>
+
+														</div>
+													<?php }
+												} ?>
+										</div>
+
 										<div class="row valign-wrapper row_player">
 											<div class="input-field col s2" style="padding-left: 0">
 												<p class="center">Je joue :</p>
@@ -179,7 +233,7 @@
 														<div class="input-field col s2">
 															<p>
 																<label>
-																	<input type="checkbox" name="<?= 'creneau_' . $i ?>" <?php if (boolval($row_connected_user['creneau_' . $i . '_ok'])){ echo "checked=\"checked\""; } ?> />
+																	<input id="check_ok<?= $i . $creneau['id_creneau'] ?>" type="checkbox" name="<?= 'creneau_' . $i . '_ok' ?>" <?php if ($row_connected_user['creneau_' . $i . '_ok']  != 0){ echo "checked=\"checked\""; } ?> />
 																	<span><?php
 																			echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
 																			if ($i == 0) echo " matin";
@@ -193,6 +247,13 @@
 																		?></span>
 																</label>
 															</p>
+
+															<script>
+																if ($('#check_indispo<?= $i . $creneau['id_creneau'] ?>').is(":checked") ){
+																	$('#check_ok<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', true);
+																}
+															</script>
+
 														</div>
 													<?php }
 												} ?>
@@ -208,7 +269,7 @@
 														<div class="input-field col s2">
 															<p>
 																<label>
-																	<input type="checkbox" name="<?= 'creneau_' . $i . '_org' ?>" <?php if (boolval($row_connected_user['creneau_' . $i . '_org'])){ echo "checked=\"checked\""; } ?> />
+																	<input id="check_org<?= $i . $creneau['id_creneau'] ?>" type="checkbox" name="<?= 'creneau_' . $i . '_org' ?>" <?php if ($row_connected_user['creneau_' . $i . '_org'] != 0){ echo "checked=\"checked\""; } ?> />
 																	<span><?php
 																			echo ucwords(strftime("%a", strtotime($creneau['creneau_' . $i . '_jour'])));
 																			if ($i == 0) echo " matin";
@@ -222,6 +283,13 @@
 																		?></span>
 																</label>
 															</p>
+
+															<script>
+																if ($('#check_indispo<?= $i . $creneau['id_creneau'] ?>').is(":checked") ){
+																	$('#check_org<?= $i . $creneau['id_creneau'] ?>').prop('checked', false).prop('disabled', true);
+																}
+															</script>
+
 														</div>
 													<?php }
 												} ?>
@@ -256,10 +324,5 @@
 					</footer>
 			<?php } ?>
 		</div>
-			
-		<!--Scripts trigger de Materialize-->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
 	</body>
-
 </html>

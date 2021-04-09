@@ -10,8 +10,19 @@
         $reservations_org = array_fill(0, $nbCreneaux, 0);
 
         for ($i = 0; $i < $nbCreneaux; $i++) {
-            $reservations[$i] = isset($_POST['creneau_' . $i]) ? 1 : 0;
-            $reservations_org[$i] = isset($_POST['creneau_' . $i . '_org']) ? 1 : 0;
+
+
+            $indispo_checked = isset($_POST['creneau_' . $i . '_indispo']);
+            $ok_checked = isset($_POST['creneau_' . $i . '_ok']);
+            $org_checked = isset($_POST['creneau_' . $i . '_org']);
+
+            if ($indispo_checked || (!$ok_checked && !$org_checked)){
+                $reservations[$i] = 2;
+                $reservations_org[$i] = 2;
+            } else {
+                if ($ok_checked) $reservations[$i] = 1; else $reservations[$i] = 0;
+                if ($org_checked) $reservations_org[$i] = 1; else $reservations_org[$i] = 0;
+            }
         }
         $reservation = new Reservation();
 
