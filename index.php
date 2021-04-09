@@ -53,6 +53,7 @@
 						<ol>
 							<li>Cocher/décocher les créneaux pour lesquels :
 								<ul class="browser-default">
+									<li>vous êtes indisponible</li>
 									<li>vous souhaitez jouer</li>
 									<li>vous vous proposez être <b>responsable (personnes habituées à la gestion au club, détentrices d'un badge d'ouverture de salle, du code d'alarme/du placard)</b> : mise en application des <a href="./affiche-reprise-en-exterieur.pdf" target="blank">consignes d'hygiène</a> réglementées par la <a href="http://www.fftt.com/site/accueil">FFTT.</a></li>
 								</ul>
@@ -60,6 +61,9 @@
 							<li>Valider en cliquant sur <b>ENREGISTRER</b>.</li>
 						</ol>
 					</blockquote>
+
+					<b>Si vous ne cliquez sur aucune case pour un créneau, vous serez indiqué comme étant "Indisponible" par défaut.
+					<br>Si vous êtes marqué comme "Indisponible" pour un créneau, vous vous verrez refuser l'accès à l'aire de jeu.</b>
 
 					<h6 class="red-text center"><b><u>Attention : un créneau sera annulé si aucun responsable</u> (symbole <i style="vertical-align: text-top;" class="black-text material-icons">remove_red_eye</i> ) <u>n'est marqué disponible pour ledit créneau.</u></b></h6>
 					
