@@ -77,9 +77,9 @@
 				<div class="semaine">
 					<div class="row">
 						<div class="col s4 center"><h5 class="lobster"><b>Légendes pour chaque créneau</b></h5></div>
-						<div class="col s2 center"><p><i class="material-icons grey-text lighten-3">highlight_off</i><br>Joueur indisponible</p></div>
-						<div class="col s2 center"><p><i class="material-icons green-text lighten-3">check_circle</i><br>Joueur prioritaire</p></div>
-						<div class="col s2 center"><p><i class="material-icons red-text lighten-3">check_circle</i><br>Joueur non prioritaire</p></div>
+						<div class="col s2 center"><p><i class="material-icons grey-text text-lighten-1">highlight_off</i><br>Joueur indisponible</p></div>
+						<div class="col s2 center"><p><i class="material-icons green-text text-darken-1">check_circle</i><br>Joueur prioritaire</p></div>
+						<div class="col s2 center"><p><i class="material-icons red-text">check_circle</i><br>Joueur non prioritaire</p></div>
 						<div class="col s2 center"><p><i class="material-icons">remove_red_eye</i><br>Responsable</p></div>
 					</div>
 				</div>
@@ -154,11 +154,11 @@
 															if ($creneau['creneau_' . $i . '_jour'] && $creneau['creneau_' . $i . '_horaire_debut'] && $creneau['creneau_' . $i . '_horaire_fin']) { ?>
 																<td class='td_resa'>
 																	<?php
-																		if ($reservation['creneau_' . $i . '_ok'] == 2) echo "<i class='grey-text  lighten-3 material-icons'>highlight_off</i>";
+																		if ($reservation['creneau_' . $i . '_ok'] == 2) echo "<i class='grey-text text-lighten-2 material-icons'>highlight_off</i>";
 																		else{
 																			if ($reservation['creneau_' . $i . '_ok'] == 1) {
 																				$i_th_joueurs[$i]++; ?>
-																				<i class="material-icons <?= $i_th_joueurs[$i] > 6 ? 'red-text lighten-3' : 'green-text lighten-3' ?>" >check_circle</i>
+																				<i class="material-icons <?= $i_th_joueurs[$i] > 6 ? 'red-text ' : 'green-text text-darken-1' ?>" >check_circle</i>
 																		<?php }
 																			if ($reservation['creneau_' . $i . '_org'] == 1) { echo "<i class='material-icons'>remove_red_eye</i>"; }
 																		} ?>
