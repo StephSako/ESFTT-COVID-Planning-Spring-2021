@@ -106,7 +106,7 @@
                         if (new DateTime() < new DateTime($creneau['jour_fin'])) {?>
                         <div class="card-panel center semaine">
                             <form class="col s12" method="POST" action="controler/modification_creneau.php">
-                                <h5 class="lobster">Du <?= ucwords(strftime("%A %e %B", strtotime($creneau['jour_debut']))) ?> au <?= ucwords(strftime("%e %B", strtotime($creneau['jour_fin']))) ?></h5>
+                                <h5 class="lobster">Du <?= ucwords(strftime("%A %e %B", strtotime($creneau['jour_debut']))) ?> au <?= ucwords(strftime("%A %e %B", strtotime($creneau['jour_fin']))) ?></h5>
 
                                 <div class="row">
                                     <div class="col s6">
