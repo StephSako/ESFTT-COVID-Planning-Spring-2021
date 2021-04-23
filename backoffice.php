@@ -102,7 +102,8 @@
                             </li>
                         </ul>
                 <?php
-                    foreach ($creneaux as $creneau) { ?>
+                    foreach ($creneaux as $creneau) {
+                        if (new DateTime() < new DateTime($creneau['jour_fin'])) {?>
                         <div class="card-panel center semaine">
                             <form class="col s12" method="POST" action="controler/modification_creneau.php">
                                 <h5 class="lobster">Du <?= ucwords(strftime("%A %e %B", strtotime($creneau['jour_debut']))) ?> au <?= ucwords(strftime("%e %B", strtotime($creneau['jour_fin']))) ?></h5>
@@ -173,7 +174,8 @@
                                 <button style="margin-top: 10px" onclick="return confirm('Supprimer le créneau ?');" class="red darken-1 btn waves-effect waves-light" type="submit" name="id_creneau" value="<?= $creneau['id_creneau'] ?>">Supprimer</button>
                             </form>
                         </div>
-                    <?php } ?>
+                    <?php }
+                        } ?>
                 <?php } ?>
                 <footer class="page-footer grey lighten-3">
 					<div class="container">
